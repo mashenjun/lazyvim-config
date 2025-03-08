@@ -19,7 +19,7 @@ return {
     opts = {
       indent = {
         enabled = true,
-        only_scope = false,   -- only show indent guides of the scope
+        only_scope = false, -- only show indent guides of the scope
         only_current = false, -- only show indent guides in the current window
       },
       animate = { enabled = false },
@@ -121,12 +121,12 @@ return {
     "rmagatti/goto-preview",
     config = function()
       require("goto-preview").setup({
-        width = 120,             -- width of the floating window
-        height = 25,             -- height of the floating window
+        width = 120, -- width of the floating window
+        height = 25, -- height of the floating window
         default_mappings = true, -- bind default mappings
-        debug = false,           -- print debug information
-        opacity = nil,           -- 0-100 opacity level of the floating window where 100 is fully transparent.
-        post_open_hook = nil,    -- a function taking two arguments, a buffer and a window to be ran as a hook.
+        debug = false, -- print debug information
+        opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
+        post_open_hook = nil, -- a function taking two arguments, a buffer and a window to be ran as a hook.
         -- you can use "default_mappings = true" setup option
         -- or explicitly set keybindings
         -- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<cr>")
@@ -167,10 +167,10 @@ return {
     "romgrk/nvim-treesitter-context",
     config = function()
       require("treesitter-context").setup({
-        enable = true,   -- enable this plugin (can be enabled/disabled later via commands)
+        enable = true, -- enable this plugin (can be enabled/disabled later via commands)
         throttle = true, -- throttles plugin updates (may improve performance)
-        max_lines = 1,   -- how many lines the window should span. values <= 0 mean no limit.
-        patterns = {     -- match patterns for ts nodes. these get wrapped to match at word boundaries.
+        max_lines = 1, -- how many lines the window should span. values <= 0 mean no limit.
+        patterns = { -- match patterns for ts nodes. these get wrapped to match at word boundaries.
           -- for all filetypes
           -- note that setting an entry here replaces all other patterns for this entry.
           -- by setting the 'default' entry below, you can control which nodes you want to
@@ -191,7 +191,7 @@ return {
     opts = {
       signs = false,
       highlight = {
-        before = "",  -- "fg" or "bg" or empty
+        before = "", -- "fg" or "bg" or empty
         keyword = "", -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
         after = "",
       },
@@ -336,8 +336,8 @@ return {
           require("statuscol").setup({
             relculright = true,
             segments = {
-              { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
-              { text = { "%s" },                  click = "v:lua.ScSa" },
+              { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+              { text = { "%s" }, click = "v:lua.ScSa" },
               { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
             },
           })
@@ -353,7 +353,7 @@ return {
     init = function()
       vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
       vim.opt.foldcolumn = "0" -- '0' is not bad
-      vim.opt.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+      vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.opt.foldlevelstart = 99
       vim.opt.foldenable = true
     end,
@@ -630,5 +630,12 @@ return {
         end, { "i", "s" }),
       })
     end,
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      cmdline = { enabled = true, view = "cmdline" },
+    },
   },
 }

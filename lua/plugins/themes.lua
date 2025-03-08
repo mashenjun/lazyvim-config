@@ -10,16 +10,16 @@ return {
     enabled = true,
     priority = 1000, -- make sure to load this before all the other start plugins
     -- optional; default configuration will be used if setup isn't called.
-    -- config = function()
-    --   require("everforest").setup({
-    --     background = "hard",
-    --     disable_italic_comments = true,
-    --     italics = false,
-    --     colours_override = function(palette)
-    --       palette.bg1 = "#39454a"
-    --     end,
-    --   })
-    -- end,
+    config = function()
+      require("everforest").setup({
+        background = "hard",
+        disable_italic_comments = true,
+        italics = false,
+        colours_override = function(palette)
+          palette.bg1 = "#39454a"
+        end,
+      })
+    end,
   },
   {
     "sainnhe/everforest",
