@@ -635,7 +635,9 @@ return {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
+      presets = { command_palette = false },
       cmdline = { enabled = true, view = "cmdline" },
     },
   },
+  { "tenxsoydev/karen-yank.nvim", config = true },
 }
