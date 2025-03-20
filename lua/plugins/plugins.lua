@@ -397,7 +397,8 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    version = "v0.9.2", -- https://github.com/andymass/vim-matchup/issues/335
+    commit = "d76a8b6e1b67fd3bcffec4a5d45fd9dee4dbbee8",
+    -- version = "v0.9.2", -- https://github.com/andymass/vim-matchup/issues/335
     opts = {
       highlight = { enable = true },
       indent = { enable = true },
@@ -639,5 +640,6 @@ return {
       cmdline = { enabled = true, view = "cmdline" },
     },
   },
-  { "tenxsoydev/karen-yank.nvim", config = true },
+  -- { "echasnovski/mini.comment", enabled = false, version = "*" },
+  -- { "tenxsoydev/karen-yank.nvim", config = true },
 }
