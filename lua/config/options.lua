@@ -9,6 +9,7 @@ vim.opt.foldenable = true
 
 vim.opt.timeoutlen = 350
 vim.opt.spelllang = "en"
+vim.opt.clipboard = "unnamed,unnamedplus"
 vim.g.autoformat = true
 
 vim.opt.listchars = { space = "∙", tab = "∙∙" }
