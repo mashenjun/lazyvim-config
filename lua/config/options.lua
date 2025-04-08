@@ -11,6 +11,7 @@ vim.opt.timeoutlen = 350
 vim.opt.spelllang = "en"
 vim.opt.clipboard = "unnamed,unnamedplus"
 vim.g.autoformat = true
+vim.g.lazyvim_picker = "snacks"
 
 vim.opt.listchars = { space = "∙", tab = "∙∙" }
 

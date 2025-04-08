@@ -2,7 +2,37 @@ if vim.g.vscode then
   return {}
 end
 
-return {
+local neotreekeymap = {
+  {
+    "<leader>fe",
+    function()
+      require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root(), position = "left" })
+    end,
+    desc = "Explorer NeoTree (Root Dir)",
+  },
+  {
+    "<leader>fE",
+    function()
+      require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), position = "left" })
+    end,
+    desc = "Explorer NeoTree (cwd)",
+  },
+  {
+    "<leader>pe",
+    function()
+      require("neo-tree.command").execute({
+        toggle = true,
+        -- vim.fn.fnamemodify(vim.fn.findfile("go.mod", ".;"),":h")
+        dir = vim.fn.expand("%:p:h:h"),
+        reveal_force_cwd = true,
+        position = "left",
+      })
+    end,
+    desc = "Explorer NeoTree (package out of cwd)",
+  },
+}
+
+local M = {
   { "tpope/vim-abolish" },
   {
     "kylechui/nvim-surround",
@@ -15,8 +45,10 @@ return {
   -- disable snacks indent when indent-blankline is enabled.
   -- make the UI less distractive.
   {
-    "snacks.nvim",
+    "folke/snacks.nvim",
     opts = {
+      picker = { hidden = true, ignored = true },
+      explorer = { hidden = true, ignored = true },
       indent = {
         enabled = true,
         only_scope = false, -- only show indent guides of the scope
@@ -24,6 +56,15 @@ return {
       },
       animate = { enabled = false },
       scroll = { enabled = false },
+    },
+    keys = {
+      {
+        "<leader>pe",
+        function()
+          Snacks.explorer({ cwd = vim.fn.expand("%:p:h:h") })
+        end,
+        desc = "Explorer Snacks (package out of cwd)",
+      },
     },
   },
   {
@@ -477,35 +518,8 @@ return {
   },
   {
     "nvim-lspconfig",
-    keys = {
-      {
-        "<leader>fe",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root(), position = "left" })
-        end,
-        desc = "Explorer NeoTree (Root Dir)",
-      },
-      {
-        "<leader>fE",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), position = "left" })
-        end,
-        desc = "Explorer NeoTree (cwd)",
-      },
-      {
-        "<leader>pe",
-        function()
-          require("neo-tree.command").execute({
-            toggle = true,
-            -- vim.fn.fnamemodify(vim.fn.findfile("go.mod", ".;"),":h")
-            dir = vim.fn.expand("%:p:h:h"),
-            reveal_force_cwd = true,
-            position = "left",
-          })
-        end,
-        desc = "Explorer NeoTree (package out of cwd)",
-      },
-    },
+    keys = vim.list_contains(LazyVim.config.json.data.extras, "lazyvim.plugins.extras.editor.snacks_explorer") and {}
+      or neotreekeymap,
     opts = {
       autoformat = false,
       diagnostics = {
@@ -621,9 +635,9 @@ return {
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif vim.snippet.active({ direction = -1 }) then
+          elseif vim.snippet.active({ direction = 0 }) then
             vim.schedule(function()
-              vim.snippet.jump(-1)
+              vim.snippet.jump(0)
             end)
           else
             fallback()
@@ -640,6 +654,6 @@ return {
       cmdline = { enabled = true, view = "cmdline" },
     },
   },
-  -- { "echasnovski/mini.comment", enabled = false, version = "*" },
-  -- { "tenxsoydev/karen-yank.nvim", config = true },
 }
+
+return M
