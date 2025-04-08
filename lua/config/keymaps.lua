@@ -8,7 +8,8 @@ vim.keymap.set("i", "kj", "<Esc>")
 -- save
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 -- close quick fix windows
-vim.keymap.set("n", "<leader>C", ":ccl<CR>")
+vim.keymap.set("n", "<leader>cc", ":cclose<CR>")
+vim.keymap.set("n", "<leader>co", ":copen<CR>")
 -- disable highlight
 vim.keymap.set("n", "<leader>h", ":noh<CR>")
 -- helper keybinding
