@@ -6,10 +6,11 @@ vim.opt.relativenumber = false
 vim.opt.foldcolumn = "0" -- '0' is not bad
 vim.opt.foldmethod = "indent"
 vim.opt.foldenable = true
-
 vim.opt.timeoutlen = 350
 vim.opt.spelllang = "en"
 vim.opt.clipboard = "unnamed,unnamedplus"
+vim.opt.autochdir = true
+
 vim.g.autoformat = true
 vim.g.lazyvim_picker = "snacks"
 

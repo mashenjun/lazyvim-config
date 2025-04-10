@@ -4,20 +4,6 @@ end
 
 local neotreekeymap = {
   {
-    "<leader>fe",
-    function()
-      require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root(), position = "left" })
-    end,
-    desc = "Explorer NeoTree (Root Dir)",
-  },
-  {
-    "<leader>fE",
-    function()
-      require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), position = "left" })
-    end,
-    desc = "Explorer NeoTree (cwd)",
-  },
-  {
     "<leader>pe",
     function()
       require("neo-tree.command").execute({
