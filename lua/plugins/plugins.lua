@@ -2,21 +2,7 @@ if vim.g.vscode then
   return {}
 end
 
-local neotreekeymap = {
-  {
-    "<leader>pe",
-    function()
-      require("neo-tree.command").execute({
-        toggle = true,
-        -- vim.fn.fnamemodify(vim.fn.findfile("go.mod", ".;"),":h")
-        dir = vim.fn.expand("%:p:h:h"),
-        reveal_force_cwd = true,
-        position = "left",
-      })
-    end,
-    desc = "Explorer NeoTree (package out of cwd)",
-  },
-}
+local root_patterns = { "go.mod", ".git", ".clang-format", "pyproject.toml", "setup.py" }
 
 local M = {
   { "tpope/vim-abolish" },
@@ -47,9 +33,20 @@ local M = {
       {
         "<leader>pe",
         function()
-          Snacks.explorer({ cwd = vim.fn.expand("%:p:h:h") })
+          Snacks.explorer({
+            -- cwd = vim.fn.expand("%:p:h:h")
+            cwd = vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1]),
+          })
         end,
-        desc = "Explorer Snacks (package out of cwd)",
+        desc = "Explorer Snacks (package root)",
+      },
+      {
+        "<leader>sP",
+        LazyVim.pick("live_grep", {
+          root = false,
+          cwd = vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1]),
+        }),
+        desc = "Grep (package root)",
       },
     },
   },
@@ -73,7 +70,7 @@ local M = {
   },
   {
     "andymass/vim-matchup",
-    enabled = true,
+    enabled = false,
     version = "*",
     -- commit = "6c8909b682803d8c3a054259079f158a73a0e30f",
     init = function()
@@ -427,6 +424,10 @@ local M = {
     commit = "d76a8b6e1b67fd3bcffec4a5d45fd9dee4dbbee8",
     -- version = "v0.9.2", -- https://github.com/andymass/vim-matchup/issues/335
     opts = {
+      matchup = {
+        enable = true,
+        disable = { "typescript" },
+      },
       highlight = { enable = true },
       indent = { enable = true },
       ensure_installed = {
@@ -498,40 +499,6 @@ local M = {
             ".DS_Store",
           },
           never_show = {},
-        },
-      },
-    },
-  },
-  {
-    "nvim-lspconfig",
-    keys = vim.list_contains(LazyVim.config.json.data.extras, "lazyvim.plugins.extras.editor.snacks_explorer") and {}
-      or neotreekeymap,
-    opts = {
-      autoformat = false,
-      diagnostics = {
-        virtual_text = {
-          severity = vim.diagnostic.severity.ERROR,
-        },
-      },
-      inlay_hints = {
-        enabled = false,
-      },
-      servers = {
-        gopls = {
-          gofumpt = true,
-          analyses = {
-            unusedparams = true,
-            shadow = true,
-          },
-          staticcheck = true,
-          formatTool = "gofmt", -- replace goimports with gofmt
-          on_attach = function(client, bufnr)
-            -- disable the gopls Semantic Tokens highlight.
-            -- just use the treesitter's highlight.
-            if vim.g.colors_name == "everforest" then
-              client.server_capabilities.semanticTokensProvider = nil
-            end
-          end,
         },
       },
     },
@@ -638,6 +605,19 @@ local M = {
     opts = {
       presets = { command_palette = false },
       cmdline = { enabled = true, view = "cmdline" },
+    },
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    keys = {
+      {
+        "<leader>sP",
+        LazyVim.pick("live_grep", {
+          root = false,
+          cwd = vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1]),
+        }),
+        desc = "Grep (package root)",
+      },
     },
   },
 }
